@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate log;
+
 use redis::Client;
 use std::time::Duration;
 
