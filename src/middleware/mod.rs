@@ -69,6 +69,7 @@ where
             None => match fallback {
                 Some(key) => key,
                 None => {
+                    warn!("403. Rate limit has no session key");
                     return Box::pin(async move { Ok(req.into_response(forbidden)) });
                 }
             },
@@ -76,9 +77,9 @@ where
 
         let mut service = self.service.clone();
         Box::pin(async move {
-            let status = limiter.count(key).await;
-            // TODO: add logger
+            let status = limiter.count(key.to_string()).await;
             if status.is_err() {
+                warn!("403. Rate limit exceed error for {}", key);
                 Ok(req.into_response(forbidden))
             } else {
                 service.call(req).await
