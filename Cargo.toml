@@ -6,7 +6,7 @@ license = "MIT"
 readme = "README.md"
 authors = ["errmac-v"]
 edition = "2018"
-keywords = ["actix", "http", "web", "rate-limit", "limit", "rate-api"]
+keywords = ["actix-web", "rate-api", "rate-limit", "limitation"]
 categories = ["asynchronous", "web-programming"]
 description = """
 A rate limiter using a fixed window counter for arbitrary keys, backed by
