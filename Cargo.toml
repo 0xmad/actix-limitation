@@ -1,0 +1,27 @@
+[package]
+name = "actix-limitation"
+version = "0.1.0"
+repository = "https://github.com/errmac-v/actix-limitation"
+license = "MIT"
+readme = "README.md"
+authors = ["errmac-v"]
+edition = "2018"
+keywords = ["actix", "http", "web", "rate api", "limit"]
+categories = ["asynchronous", "web-programming"]
+description = """
+A rate limiter using a fixed window counter for arbitrary keys, backed by
+Redis for actix-web.
+"""
+
+[dependencies]
+actix-session = "0.3.0"
+actix-web = "2.0.0"
+chrono = "0.4.11"
+futures = "0.3.4"
+log = "0.4.8"
+redis = "0.15.1"
+time = "0.1.42" # TODO: update actix-web
+
+[dev-dependencies]
+tokio = { version = "0.2.16", features = ["full"] }
+uuid = { version = "0.8.1", features = ["v4"] }
