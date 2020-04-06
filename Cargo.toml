@@ -1,6 +1,6 @@
 [package]
 name = "actix-limitation"
-version = "0.1.0"
+version = "0.1.1"
 repository = "https://github.com/errmac-v/actix-limitation"
 license = "MIT"
 readme = "README.md"
