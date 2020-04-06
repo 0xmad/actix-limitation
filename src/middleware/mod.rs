@@ -64,13 +64,13 @@ where
         let forbidden = HttpResponse::Forbidden().finish().into_body();
         let (key, fallback) = key(&req, limiter.clone());
 
+        let mut service = self.service.clone();
         let key = match key {
             Some(key) => key,
             None => match fallback {
                 Some(key) => key,
                 None => {
-                    warn!("403. Rate limit has no session key");
-                    return Box::pin(async move { Ok(req.into_response(forbidden)) });
+                    return Box::pin(async move { service.call(req).await });
                 }
             },
         };

@@ -24,7 +24,7 @@ fn test_create_limiter_error() {
     };
 }
 
-#[tokio::test]
+#[actix_rt::test]
 async fn test_limiter_count() -> Result<(), Error> {
     let builder = Limiter::build("redis://127.0.0.1:6379/1");
     let limiter = builder.finish().unwrap();
@@ -38,7 +38,7 @@ async fn test_limiter_count() -> Result<(), Error> {
     Ok(())
 }
 
-#[tokio::test]
+#[actix_rt::test]
 async fn test_limiter_count_error() -> Result<(), Error> {
     let builder = Limiter::build("redis://127.0.0.1:6379/1");
     let limiter = builder.finish().unwrap();

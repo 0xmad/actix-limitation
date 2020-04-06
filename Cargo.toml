@@ -23,5 +23,5 @@ redis = "0.15.1"
 time = "0.1.42" # TODO: update actix-web
 
 [dev-dependencies]
-tokio = { version = "0.2.16", features = ["full"] }
+actix-rt = "1.0.0"
 uuid = { version = "0.8.1", features = ["v4"] }
