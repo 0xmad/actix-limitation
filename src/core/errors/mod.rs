@@ -9,7 +9,8 @@ pub enum Error {
     /// The limit is exceeded for a key.
     LimitExceeded(Status),
     /// A time conversion failed.
-    Time(time::OutOfRangeError),
+    Time(time::ComponentRangeError),
+    Other(String),
 }
 
 impl fmt::Display for Error {
@@ -18,6 +19,7 @@ impl fmt::Display for Error {
             Error::Client(ref err) => write!(f, "Client error ({})", err),
             Error::LimitExceeded(ref status) => write!(f, "Rate limit exceeded ({:?})", status),
             Error::Time(ref err) => write!(f, "Time conversion error ({})", err),
+            Error::Other(err) => write!(f, "{}", err),
         }
     }
 }
@@ -28,6 +30,7 @@ impl error::Error for Error {
             Error::Client(ref err) => err.source(),
             Error::LimitExceeded(_) => None,
             Error::Time(ref err) => err.source(),
+            Error::Other(_) => None,
         }
     }
 }
@@ -38,8 +41,8 @@ impl From<redis::RedisError> for Error {
     }
 }
 
-impl From<time::OutOfRangeError> for Error {
-    fn from(err: time::OutOfRangeError) -> Self {
+impl From<time::ComponentRangeError> for Error {
+    fn from(err: time::ComponentRangeError) -> Self {
         Error::Time(err)
     }
 }
