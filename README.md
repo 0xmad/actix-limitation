@@ -6,9 +6,9 @@ This project is based on https://github.com/fnichol/limitation.
 ## Example
 ```toml
 [dependencies]
-actix-limitation = "0.1.0"
+actix-limitation = "0.1.3"
 actix-web = "2.0.0"
-actix-rt = "1.0.0"
+actix-rt = "1.1.1"
 ```
 
 Code:

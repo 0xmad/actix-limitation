@@ -1,3 +1,4 @@
+use crate::Error as LimitationError;
 use chrono::SubsecRound;
 use std::{convert::TryInto, ops::Add, time::Duration};
 
@@ -38,13 +39,18 @@ impl Status {
         }
     }
 
-    pub(crate) fn epoch_utc_plus(duration: Duration) -> Result<usize, time::OutOfRangeError> {
-        Ok(chrono::Utc::now()
-            .add(chrono::Duration::from_std(duration)?)
-            .round_subsecs(0)
-            .timestamp()
-            .try_into()
-            .unwrap_or(0))
+    pub(crate) fn epoch_utc_plus(duration: Duration) -> Result<usize, LimitationError> {
+        match chrono::Duration::from_std(duration) {
+            Ok(value) => Ok(chrono::Utc::now()
+                .add(value)
+                .round_subsecs(0)
+                .timestamp()
+                .try_into()
+                .unwrap_or(0)),
+            Err(_) => Err(LimitationError::Other(
+                "Source duration value is out of range for the target type".to_string(),
+            )),
+        }
     }
 }
 
